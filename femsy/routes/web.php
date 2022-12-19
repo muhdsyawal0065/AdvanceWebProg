@@ -23,3 +23,12 @@ Route::POST("/add", [studentControl::class, "addData"]);
 Route::get("del/{id}", [studentControl::class, "deleteStud"]);
 Route::get("upd/{id}", [studentControl::class, "showStud"]);
 Route::POST("/edit", [studentControl::class, "update"]);
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
