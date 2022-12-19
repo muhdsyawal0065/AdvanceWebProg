@@ -21,3 +21,6 @@ Route::get('/', function () {
 Route::get("list", [studentControl::class, "show"]);
 Route::view("push","addStud");
 Route::POST("/add", [studentControl::class, "addData"]);
+Route::get("del/{id}", [studentControl::class, "deleteStud"]);
+Route::get("upd/{id}", [studentControl::class, "showStud"]);
+Route::POST("/edit", [studentControl::class, "update"]);

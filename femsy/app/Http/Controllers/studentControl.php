@@ -24,4 +24,27 @@ class studentControl extends Controller
         $stud->save();
         return redirect('push');
     }
+    function deleteStud($id)
+    {
+        $data=Student::find($id);
+        $data->delete();
+        return redirect('list');
+    }
+    function showStud($id)
+    {
+        $data=Student::find($id);
+        return view('updateData', ['disp'=>$data]);
+    }
+    function update(Request $req)
+    {
+        date_default_timezone_set('Asia/Kuala_Lumpur');
+        $current_date_time = date('Y-m-d H:i:s');
+        $data=Student::find($req->id);
+        $data->name=$req->name;
+        $data->address=$req->address;
+        $data->last_updated = $current_date_time;
+        $data->save();
+
+        return redirect('list');
+    }
 }
