@@ -33,8 +33,8 @@
                     <td>{{$x['duration']}}</td>
                     <td>{{$x['progress']}}</td>
                     <td>{{$x['status']}}</td>
-                    <td style="color:blue"><a href={{"del/".$x['id']}}> DELETE </td>
-                    <td style="color:blue"><a href={{"upd/".$x['id']}}> UPDATE </td>
+                    <td style="color:blue"><a href={{"delproj/".$x['id']}}> DELETE </td>
+                    <td style="color:blue"><a href={{"updproj/".$x['id']}}> UPDATE </td>
                 </tr>
                 @endforeach
             </table>

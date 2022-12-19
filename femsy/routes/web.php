@@ -27,6 +27,9 @@ Route::POST("/edit", [studentControl::class, "update"]);
 Route::get("senaraiproj", [projectControl::class, "show"]);
 Route::get("pushproj",[projectControl::class, "addForm"]);
 Route::POST("/addProject", [projectControl::class, "addProj"]);
+Route::get("delproj/{id}", [projectControl::class, "deleteProj"]);
+Route::get("updproj/{id}", [projectControl::class, "showProj"]);
+Route::POST("/editproj", [projectControl::class, "updateProj"]);
 
 
 Route::middleware([
