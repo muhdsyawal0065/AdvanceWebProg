@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\studentControl;
-
+use App\Http\Controllers\projectControl;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +23,12 @@ Route::POST("/add", [studentControl::class, "addData"]);
 Route::get("del/{id}", [studentControl::class, "deleteStud"]);
 Route::get("upd/{id}", [studentControl::class, "showStud"]);
 Route::POST("/edit", [studentControl::class, "update"]);
+
+Route::get("senaraiproj", [projectControl::class, "show"]);
+Route::get("pushproj",[projectControl::class, "addForm"]);
+Route::POST("/addProject", [projectControl::class, "addProj"]);
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
