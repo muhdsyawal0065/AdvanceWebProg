@@ -17,7 +17,6 @@ use App\Http\Controllers\studentControl;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::get("list", [studentControl::class, "show"]);
 Route::view("push","addStud");
 Route::POST("/add", [studentControl::class, "addData"]);
