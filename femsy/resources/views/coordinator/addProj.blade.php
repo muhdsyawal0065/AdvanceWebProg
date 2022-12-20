@@ -12,7 +12,7 @@
             return differenceOfDays;
         }
         let result = findTheDifferenceBetweenTwoDates(firstDate, secondDate);
-        result = Math.round(result / 30)
+        result = Math.floor(result / 30)
         $("#duration").val(result);
     }
 

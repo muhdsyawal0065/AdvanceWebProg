@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get("/redirect", [projectControl::class,"redirectFunct"]);
 
 Route::get("list", [studentControl::class, "show"]);
-Route::view("push","addStud");
+Route::view("push","coordinator/addStud");
 Route::POST("/add", [studentControl::class, "addData"]);
 Route::get("del/{id}", [studentControl::class, "deleteStud"]);
 Route::get("upd/{id}", [studentControl::class, "showStud"]);
