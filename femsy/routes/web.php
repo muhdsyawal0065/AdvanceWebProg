@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\studentControl;
 use App\Http\Controllers\projectControl;
+use App\Http\Controllers\svprojectControl;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,9 @@ use App\Http\Controllers\projectControl;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get("/redirect", [projectControl::class,"redirectFunct"]);
+
 Route::get("list", [studentControl::class, "show"]);
 Route::view("push","addStud");
 Route::POST("/add", [studentControl::class, "addData"]);
@@ -29,8 +33,11 @@ Route::get("pushproj",[projectControl::class, "addForm"]);
 Route::POST("/addProject", [projectControl::class, "addProj"]);
 Route::get("delproj/{id}", [projectControl::class, "deleteProj"]);
 Route::get("updproj/{id}", [projectControl::class, "showProj"]);
-Route::POST("/editproj", [projectControl::class, "updateProj"]);
+Route::POST("/editproj", [projectControl::class, "updateProject"]);
 
+Route::get("senaraiprojsv", [svprojectControl::class, "show"]);
+Route::get("updprojsv/{id}", [svprojectControl::class, "showProj"]);
+Route::POST("/editprojsv", [svprojectControl::class, "updateProject"]);
 
 Route::middleware([
     'auth:sanctum',

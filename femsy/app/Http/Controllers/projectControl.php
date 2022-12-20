@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Student;
 use App\Models\Project;
 use App\Models\User;
 class projectControl extends Controller
 {
+    function redirectFunct()
+    {
+        $data=Student::all();
+        $output=Project::all();
+        $typeuser=Auth::user()->usertype;
+        if($typeuser=='1')
+        {
+            return view('coordinator/display', ['projects'=>$output, 'students'=>$data]);
+        }
+        else
+        {
+            return view('supervisor/display', ['projects'=>$output, 'students'=>$data]);
+        }
+    }
     function show()
     {
         $data=Student::all();
@@ -26,6 +41,7 @@ class projectControl extends Controller
         $stud->id = $req->id;
         $stud->studid = $req->studid;
         $stud->title = $req->title;
+        $stud->category = $req->category;
         $stud->start_date = $req->start_date;
         $stud->end_date = $req->end_date;
         $stud->svid = $req->svid;
@@ -50,9 +66,9 @@ class projectControl extends Controller
         $data3=User::all();
         return view('coordinator/updateProj', ['projects'=>$data, 'students'=>$data2, 'users'=>$data3]);
     }
-    function updateProj(Request $req)
+    function updateProject(Request $req)
     {
-        $stud = new Project();
+        $stud=Project::find($req->id);
         $stud->id = $req->id;
         $stud->studid = $req->studid;
         $stud->title = $req->title;

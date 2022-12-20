@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
-
+use App\Models\Project;
+use App\Models\User;
 class studentControl extends Controller
 {
     function show()
@@ -22,7 +23,7 @@ class studentControl extends Controller
         $stud->address = $req->address;
         $stud->last_updated = $current_date_time;
         $stud->save();
-        return redirect('push');
+        return redirect('senaraiproj');
     }
     function deleteStud($id)
     {

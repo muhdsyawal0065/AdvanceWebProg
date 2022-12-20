@@ -3,7 +3,7 @@
     <div>
         @auth
         <x-app-layout>
-            <div style="position: relative; top: 60px; right:-140px" >
+        <div style="position: relative; top: 60px; right:-140px" >
             <table bgcolor="grey" border="3px">
                 <tr style="font-size: 12px;">
                     <th style="padding:20px">ID</th>
@@ -19,7 +19,6 @@
                     <th style="padding:20px">Progress</th>
                     <th style="padding:20px">Status</th>
                     <th style="padding:20px">Operation</th>
-                    <th style="padding:20px">Operation 2</th>
                 </tr>
                 @foreach($projects as $x)
                 <tr align="center" style="font-size: 12px;">
@@ -35,13 +34,10 @@
                     <td>{{$x['duration']}}</td>
                     <td>{{$x['progress']}}</td>
                     <td>{{$x['status']}}</td>
-                    <td style="color:blue"><a href={{"delproj/".$x['id']}}> DELETE </td>
-                    <td style="color:blue"><a href={{"updproj/".$x['id']}}> UPDATE </td>
+                    <td style="color:blue"><a href={{"updprojsv/".$x['id']}}> UPDATE </td>
                 </tr>
                 @endforeach
             </table>
-            <a style="font-size: 12px; color:blue"; href={{('push')}}> Add New Student </a>
-            <a style="font-size: 12px; color:blue"; href={{('pushproj')}}> Add New Project </a>
         </div>
         </x-app-layout>
         @else

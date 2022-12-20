@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->foreignId("studid");
             $table->string('title');
+            $table->string('category');
             $table->date("start_date");
             $table->date("end_date");
             $table->foreignId("svid");

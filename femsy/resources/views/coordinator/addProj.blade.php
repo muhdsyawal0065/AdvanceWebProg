@@ -1,3 +1,34 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    const setup = () => {
+        let firstDate = $('#start_date').val();
+        let secondDate = $('#end_date').val();
+        const findTheDifferenceBetweenTwoDates = (firstDate, secondDate) => {
+            firstDate = new Date(firstDate);
+            secondDate = new Date(secondDate);
+            let timeDifference = Math.abs(secondDate.getTime() - firstDate.getTime());
+            let millisecondsInADay = (1000 * 3600 * 24);
+            let differenceOfDays = Math.ceil(timeDifference / millisecondsInADay);
+            return differenceOfDays;
+        }
+        let result = findTheDifferenceBetweenTwoDates(firstDate, secondDate);
+        result = Math.round(result / 30)
+        $("#duration").val(result);
+    }
+
+    $(document).ready(function() {
+        $('#start_date').change(function() {
+            if ($('#end_date').val() != '') {
+                setup();
+            }
+        })
+        $('#end_date').change(function() {
+            if ($('#start_date').val() != '') {
+                setup();
+            }
+        })
+    });
+</script>
 <h1> Project Registration </h1>
 <form action="/addProject" method ="POST">
     @csrf
@@ -5,6 +36,12 @@
     <input type="hidden" name="id" placeholder="Enter Student ID:"><br>
     Title:
     <input type="text" name="title" placeholder="Enter Title:" required><br><br>
+    Category:
+    <select name="category" required>
+        <option value="" selected>--Please Select--</option>
+        <option value="Development">Development</option>
+        <option value="Research">Research</option>
+    </select><br><br>
     Student:
     <select name="studid" required>
         <option value="" selected>--Please Select--</option>
@@ -13,9 +50,9 @@
         @endforeach
     </select><br><br>
     Start Date:
-    <input type="date" name="start_date" placeholder="Date:" required><br><br>
+    <input type="date" name="start_date" id="start_date" placeholder="Date:" required><br><br>
     End Date:
-    <input type="date" name="end_date" placeholder="Date:" required><br><br>
+    <input type="date" name="end_date" id="end_date" placeholder="Date:" required><br><br>
     Supervisor:
     <select name="svid" required>
         <option value="" selected>--Please Select--</option>
@@ -38,7 +75,7 @@
         @endforeach
     </select><br><br>
     Duration:
-    <input type="number" name="duration" placeholder="Duration:" step="1" required><br><br>
+    <input type="text" name="duration" id="duration" placeholder="Duration:" readonly required><br><br>
     Progress:
     <select name="progress" required>
         <option value="" selected>--Please Select--</option>
