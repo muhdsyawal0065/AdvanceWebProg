@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Breeze Admin</title>
+    <title>Admin Site</title>
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css" />
@@ -13,14 +13,52 @@
     <link rel="stylesheet" href="admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="admin/assets/css/style.css" />
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+
 </head>
+<style>
+    .button {
+        border: none;
+        color: white;
+        border-radius: 4px;
+        padding: 4px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+
+    .button1 {
+        background-color: white;
+        color: black;
+        border: 2px solid #FFD700;
+    }
+
+    .button1:hover {
+        background-color: #FFD700;
+        color: white;
+    }
+
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #87CEFA;
+    }
+
+    .button2:hover {
+        background-color: #87CEFA;
+        color: white;
+    }
+</style>
 
 <body>
     <div class="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-                <a class="sidebar-brand brand-logo" href="{{('redirect')}}"><img src="admin/assets/images/logo.svg" alt="logo" /></a>
-                <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="{{('redirect')}}"><img src="admin/assets/images/logo-mini.svg" alt="logo" /></a>
+                <a class="sidebar-brand brand-logo" href="{{('redirect')}}"><img src="/admin/assets/images/logo.png" alt="logo" /></a>
+
             </div>
             <ul class="nav">
                 <li class="nav-item nav-profile">
@@ -36,13 +74,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{('redirect')}}">
-                        <i class="mdi mdi-home menu-icon"></i>
-                        <span class="menu-title">Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{('redirect')}}">
+                    <a class="nav-link" href="{{('/list')}}">
                         <i class="mdi mdi-contacts menu-icon"></i>
                         <span class="menu-title">User</span>
                     </a>
@@ -77,20 +109,20 @@
                     <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
                         <i class="mdi mdi-menu"></i>
                     </button>
-                    
+
                     <ul class="navbar-nav navbar-nav-right ml-lg-auto">
 
                         <li class="nav-item nav-profile dropdown border-0">
                             <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
                                 <span class="profile-name">{{Auth::user()->name}}</span>
                             </a>
-                            <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" 
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}
-                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                    <i class="mdi mdi-logout mr-2 text-primary"></i> Logout </a>
+                                    <i class="mdi mdi-logout mr-2 text-primary"></i>
+                                </a>
                             </div>
                         </li>
                     </ul>
@@ -103,65 +135,73 @@
                 <div class="content-wrapper pb-0">
 
                     <div class="row">
-                        <div class="items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+                        <div class="items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                    <div class="page-header flex-wrap">
-                                        <h3 class="mb-0"> Hi, {{Auth::user()->name}} welcome back! <span class="pl-0 h6 pl-sm-2 text-muted d-inline-block">Registered Project:</span></h3>
+                                <div class="page-header flex-wrap">
+                                    <h3 class="mb-0"> Hi, {{Auth::user()->name}}. Welcome back!</h3>
+                                </div>
+                                <div style="position: relative; right:0px">
+                                <h5> Registered Projects</h5>
+                                    <table bgcolor="white">
+                                        <tr style="font-size: 12px;">
+                                            <th style="padding:20px">ID</th>
+                                            <th style="padding:20px">Title</th>
+                                            <th style="padding:20px">Category</th>
+                                            <th style="padding:20px">Student</th>
+                                            <th style="padding:20px">Start Date</th>
+                                            <th style="padding:20px">End Date</th>
+                                            <th style="padding:20px">Supervisor</th>
+                                            <th style="padding:20px">Examiner 1</th>
+                                            <th style="padding:20px">Examiner 2</th>
+                                            <th style="padding:20px">Duration <br />(Months)</th>
+                                            <th style="padding:20px">Progress</th>
+                                            <th style="padding:20px">Status</th>
+                                            <th style="padding:20px">Operation</th>
+
+                                        </tr>
+                                        @foreach($projects as $x)
+                                        <tr align="center" style="font-size: 12px;">
+                                            <td>{{$x['id']}}</td>
+                                            <td>{{$x['title']}}</td>
+                                            <td>{{$x['category']}}</td>
+                                            <td>{{$x['studid']}}</td>
+                                            <td>{{$x['start_date']}}</td>
+                                            <td>{{$x['end_date']}}</td>
+                                            <td>{{$x['svid']}}</td>
+                                            <td>{{$x['exid1']}}</td>
+                                            <td>{{$x['exid2']}}</td>
+                                            <td>{{$x['duration']}}</td>
+                                            <td>{{$x['progress']}}</td>
+                                            <td>{{$x['status']}}</td>
+                                            <td style="font-size: 10px;" ; class="button button2"><a href={{"delproj/".$x['id']}}> DELETE </td>
+                                            <td style="font-size: 10px;" ; class="button button1"><a href={{"updproj/".$x['id']}}> UPDATE </td>
+                                        </tr>
+                                        @endforeach
+                                    </table><br>
+                                    <div class="d-flex">
+                                        <a style="font-size: 12px;" ; class="btn btn-sm ml-3 btn-success" ; href={{('pushproj')}}> Add New Project </a>
                                     </div>
-                                    <div style="position: relative; right:0px">
-                                        <table bgcolor="grey" border="1px">
-                                            <tr style="font-size: 12px;">
-                                                <th style="padding:20px">ID</th>
-                                                <th style="padding:20px">Title</th>
-                                                <th style="padding:20px">Category</th>
-                                                <th style="padding:20px">Student</th>
-                                                <th style="padding:20px">Start Date</th>
-                                                <th style="padding:20px">End Date</th>
-                                                <th style="padding:20px">Supervisor</th>
-                                                <th style="padding:20px">Examiner 1</th>
-                                                <th style="padding:20px">Examiner 2</th>
-                                                <th style="padding:20px">Duration <br />(Months)</th>
-                                                <th style="padding:20px">Progress</th>
-                                                <th style="padding:20px">Status</th>
-                                                <th style="padding:20px">Operation</th>
-                                                <th style="padding:20px">Operation 2</th>
-                                            </tr>
-                                            @foreach($projects as $x)
-                                            <tr align="center" style="font-size: 12px;">
-                                                <td>{{$x['id']}}</td>
-                                                <td>{{$x['title']}}</td>
-                                                <td>{{$x['category']}}</td>
-                                                <td>{{$x['studid']}}</td>
-                                                <td>{{$x['start_date']}}</td>
-                                                <td>{{$x['end_date']}}</td>
-                                                <td>{{$x['svid']}}</td>
-                                                <td>{{$x['exid1']}}</td>
-                                                <td>{{$x['exid2']}}</td>
-                                                <td>{{$x['duration']}}</td>
-                                                <td>{{$x['progress']}}</td>
-                                                <td>{{$x['status']}}</td>
-                                                <td style="color:blue"><a href={{"delproj/".$x['id']}}> DELETE </td>
-                                                <td style="color:blue"><a href={{"updproj/".$x['id']}}> UPDATE </td>
-                                            </tr>
-                                            @endforeach
-                                        </table><br>
-                                        <div class="d-flex">
-                                            <a style="font-size: 12px;" ; class="btn btn-sm ml-3 btn-success" ; href={{('push')}}> Add New Student </a>
-                                            <a style="font-size: 12px;" ; class="btn btn-sm ml-3 btn-success" ; href={{('pushproj')}}> Add New Project </a>
-                                        </div>
-                                        <br>
-                                        <div class="card">
-                                            <div class="col-xl-4 col-md-6 grid-margin stretch-card">
-                                                <!--datepicker-->
-                                                <div class="card-body">
-                                                    <div id="inline-datepicker" class="datepicker table-responsive"></div>
-                                                </div>
+                                    <br>
+                                    <div class="card">
+                                        <div class="col-xl-4 col-md-6 grid-margin stretch-card">
+                                            <!--datepicker-->
+                                            <div class="card-body">
+                                                <div id="inline-datepicker" class="datepicker table-responsive"></div>
                                             </div>
-                                            <!--datepicker ends-->
                                         </div>
+                                        <!--datepicker ends-->
                                     </div>
+                                </div>
+                                <div class="card">
+
+                                </div>
+                                <footer class="footer">
+                                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
+                                    </div>
+                                </footer>
                             </div>
 
                             @else
@@ -176,12 +216,6 @@
                     </div>
                 </div>
             </div>
-            <footer class="footer">
-                <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
-                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard template</a> from Bootstrapdash.com</span>
-                </div>
-            </footer>
         </div>
         <!-- main-panel ends -->
     </div>

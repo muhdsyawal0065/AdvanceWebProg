@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get("/redirect", [projectControl::class,"redirectFunct"]);
+Route::get("/list", [studentControl::class,"show"]);
 
 Route::get("list", [studentControl::class, "show"]);
 Route::view("push","coordinator/addStud");

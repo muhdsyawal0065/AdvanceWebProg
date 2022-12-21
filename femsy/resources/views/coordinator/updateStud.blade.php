@@ -20,25 +20,22 @@
         border: none;
         border-bottom: 2px solid #1E90FF;
     }
-
     input[type=date] {
         width: 70%;
         border: none;
         border-bottom: 2px solid #1E90FF;
     }
-
     select {
         width: 70%;
         border: none;
         border-bottom: 2px solid #1E90FF;
     }
 </style>
-
 <body>
     <div class="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-                <a class="sidebar-brand brand-logo" href="{{('/redirect')}}"><img src="/admin/assets/images/logo.png" alt="logo" /></a>
+                <a class="sidebar-brand brand-logo" href="{{('redirect')}}"><img src="/admin/assets/images/logo.png" alt="logo" /></a>
             </div>
             <ul class="nav">
                 <li class="nav-item nav-profile">
@@ -60,7 +57,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{('/redirect')}}">
+                    <a class="nav-link" href="{{('redirect')}}">
                         <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                         <span class="menu-title">Project List</span>
                     </a>
@@ -115,101 +112,61 @@
                 <div class="content-wrapper pb-0">
 
                     <div class="row">
-                        <div class="items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 ">
+                        <div class="items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
                             @if (Route::has('login'))
                             <div>
                                 @auth
                                 <div class="card">
                                     <div style="padding:30px; position:center">
-                                        <h1> Project Update </h1>
-                                        <form action="/editproj" method="POST">
+                                        <h1> Student Update </h1>
+
+                                        <form action="/edit" method="POST">
                                             @csrf
-                                            <input type="hidden" name="id" value="{{$projects['id']}}"><br>
-                                            <b>Title:</b><br><br>
-                                            <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="title" value="{{$projects['title']}}" readonly><br><br>
-                                            <b>Category:</b><br><br>
-                                            <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="category" value="{{$projects['category']}}" readonly><br><br>
-                                            <b>Student:</b><br><br>
-                                            @foreach($students as $row)
-                                            @if ($projects['studid'] == $row['id'])
-                                            <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="studid" value="{{$row['id']}}" readonly><br><br>
-                                            @endif
-                                            @endforeach
-                                            <b>Start Date:</b><br><br>
-                                            <input type="date" name="start_date" id="start_date" value="{{$projects['start_date']}}" required><br><br>
-                                            <b>End Date:</b><br><br>
-                                            <input type="date" name="end_date" id="end_date" value="{{$projects['end_date']}}" required><br><br>
-                                            <b>Supervisor:</b><br><br>
-                                            @foreach($users as $row)
-                                            @if ($projects['svid'] == $row['id'])
-                                            <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="svid" value="{{$row['id']}}" readonly><br><br>
-                                            @endif
-                                            @endforeach
-                                            <b>Examiner 1:</b><br><br>
-                                            @foreach($users as $row)
-                                            @if ($projects['exid1'] == $row['id'])
-                                            <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="exid1" value="{{$row['id']}}" readonly><br><br>
-                                            @endif
-                                            @endforeach
-                                            <b>Examiner 2:</b><br><br>
-                                            @foreach($users as $row)
-                                            @if ($projects['exid2'] == $row['id'])
-                                            <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="exid2" value="{{$row['id']}}" readonly><br><br>
-                                            @endif
-                                            @endforeach
-                                            <b>Duration:</b><br><br>
-                                            <input type="text" name="duration" id="duration" value="{{$projects['duration']}}"><br><br>
-                                            <b>Progress:</b><br><br>
-                                            <select name="progress" required>
-                                                <option value="">--Please Select--</option>
-                                                <option value="Milestone 1" @if ($projects['progress']=="Milestone 1" ) selected @endif>Milestone 1</option>
-                                                <option value="Milestone 2" @if ($projects['progress']=="Milestone 2" ) selected @endif>Milestone 2</option>
-                                                <option value="Final Report" @if ($projects['progress']=="Final Report" ) selected @endif>Final Report</option>
-                                            </select><br><br>
-                                            <b>Status:</b><br><br>
-                                            <select name="status" required>
-                                                <option value="">--Please Select--</option>
-                                                <option value="On Track" @if ($projects['status']=="On Track" ) selected @endif>On Track</option>
-                                                <option value="Delayed" @if ($projects['status']=="Delayed" ) selected @endif>Delayed</option>
-                                                <option value="Extended" @if ($projects['status']=="Extended" ) selected @endif>Extended</option>
-                                                <option value="Completed" @if ($projects['status']=="Completed" ) selected @endif>Completed</option>
-                                            </select><br><br>
+                                            <p style="color:red"> * is compulsory </p>
+                                            <div class="form-group">
+                                            <b>ID: {{$disp['id']}}</b><br>
+                                                <input type="hidden" name="id" value="{{$disp['id']}}" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                            <b>Name*</b><br><br>
+                                                <input type="text" name="name" placeholder="Enter Student Name:" value="{{$disp['name']}}" required><br>
+                                            </div>
+                                            <div class="form-group">
+                                            <b>Address*</b><br><br>
+                                                <input type="text" name="address" placeholder="Enter Address:" value="{{$disp['address']}}" required><br>
+                                            </div>
                                             <div style="text-align:center">
                                                 <button style="font-size: 12px;" type="reset" class="btn btn-sm ml-3 btn-secondary"> Reset </button>
                                                 <input style="font-size: 12px;" type="submit" class="btn btn-sm ml-3 btn-success" name="submit">
-                                            </div>
                                         </form>
+                                        <br>
                                     </div>
                                 </div>
 
+                                @else
+                                <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
+                                @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                                @endif
+                                @endauth
                             </div>
-                            <div class="card">
-
-                            </div>
-                            <footer class="footer">
-                                <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
-                                </div>
-                            </footer>
+                            @endif
                         </div>
-
-                        @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                        @endauth
                     </div>
-                    @endif
                 </div>
+                <div class="card">
+ 
+                </div>
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
+                    </div>
+                </footer>
             </div>
+            <!-- main-panel ends -->
         </div>
-    </div>
-    <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
+        <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->

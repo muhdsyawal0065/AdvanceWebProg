@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Student;
 use App\Models\Project;
 use App\Models\User;
@@ -10,8 +11,14 @@ class studentControl extends Controller
 {
     function show()
     {
-        $output=Student::all();
-        return view('display', ['senarai'=>$output]);
+        $output = Student::all();
+        $data2 = User::all();
+        $typeuser = Auth::user()->usertype;
+        if ($typeuser == '1') {
+            return view('coordinator/displayStudent', ['senarai'=>$output, 'users' => $data2]);
+        } else {
+            return view('supervisor/displayStudent', ['senarai'=>$output, 'users' => $data2]);
+        }
     }
     function addData(Request $req)
     {
@@ -34,7 +41,7 @@ class studentControl extends Controller
     function showStud($id)
     {
         $data=Student::find($id);
-        return view('updateData', ['disp'=>$data]);
+        return view('coordinator/updateStud', ['disp'=>$data]);
     }
     function update(Request $req)
     {

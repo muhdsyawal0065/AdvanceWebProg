@@ -1,52 +1,268 @@
-<div class="items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-    @if (Route::has('login'))
-    <div>
-        @auth
-        <x-app-layout>
-        <div style="position: relative; top: 60px; right:-140px" >
-            <table bgcolor="grey" border="3px">
-                <tr style="font-size: 12px;">
-                    <th style="padding:20px">ID</th>
-                    <th style="padding:20px">Title</th>
-                    <th style="padding:20px">Category</th>
-                    <th style="padding:20px">Student</th>
-                    <th style="padding:20px">Start Date</th>
-                    <th style="padding:20px">End Date</th>
-                    <th style="padding:20px">Supervisor</th>
-                    <th style="padding:20px">Examiner 1</th>
-                    <th style="padding:20px">Examiner 2</th>
-                    <th style="padding:20px">Duration <br/>(Months)</th>
-                    <th style="padding:20px">Progress</th>
-                    <th style="padding:20px">Status</th>
-                    <th style="padding:20px">Operation</th>
-                </tr>
-                @foreach($projects as $x)
-                <tr align="center" style="font-size: 12px;">
-                    <td>{{$x['id']}}</td>
-                    <td>{{$x['title']}}</td>
-                    <td>{{$x['category']}}</td>
-                    <td>{{$x['studid']}}</td>
-                    <td>{{$x['start_date']}}</td>
-                    <td>{{$x['end_date']}}</td>
-                    <td>{{$x['svid']}}</td>
-                    <td>{{$x['exid1']}}</td>
-                    <td>{{$x['exid2']}}</td>
-                    <td>{{$x['duration']}}</td>
-                    <td>{{$x['progress']}}</td>
-                    <td>{{$x['status']}}</td>
-                    <td style="color:blue"><a href={{"updprojsv/".$x['id']}}> UPDATE </td>
-                </tr>
-                @endforeach
-            </table>
-        </div>
-        </x-app-layout>
-        @else
-        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+<!DOCTYPE html>
+<html lang="en">
 
-        @if (Route::has('register'))
-        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-        @endif
-        @endauth
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Admin Site</title>
+    <link rel="stylesheet" href="/admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="/admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="/admin/assets/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="/admin/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="/admin/assets/css/style.css" />
+    <link rel="shortcut icon" href="/admin/assets/images/favicon.png" />
+
+</head>
+<style>
+    .button {
+        border: none;
+        color: white;
+        border-radius: 4px;
+        padding: 4px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+
+    .button1 {
+        background-color: white;
+        color: black;
+        border: 2px solid #FFD700;
+    }
+
+    .button1:hover {
+        background-color: #FFD700;
+        color: white;
+    }
+
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #87CEFA;
+    }
+
+    .button2:hover {
+        background-color: #87CEFA;
+        color: white;
+    }
+
+    .w-5 {
+        display: none
+    }
+</style>
+
+<body>
+    <div class="container-scroller">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
+                <a class="sidebar-brand brand-logo" href="{{('redirect')}}"><img src="/admin/assets/images/logo.png" alt="logo" /></a>
+            </div>
+            <ul class="nav">
+                <li class="nav-item nav-profile">
+                    <a href="#" class="nav-link">
+                        <div class="nav-profile-image">
+                            <img src="/admin/assets/images/faces/face1.jpg" alt="profile" />
+                            <span class="login-status online"></span>
+                            <!--change to offline or busy as needed-->
+                        </div>
+                        <div class="nav-profile-text d-flex flex-column pr-3">
+                            <span class="font-weight-medium mb-2">{{Auth::user()->name}}</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{('/list')}}">
+                        <i class="mdi mdi-contacts menu-icon"></i>
+                        <span class="menu-title">User</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{('redirect')}}">
+                        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+                        <span class="menu-title">Project List</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="container-fluid page-body-wrapper">
+            <div id="theme-settings" class="settings-panel">
+                <i class="settings-close mdi mdi-close"></i>
+                <p class="settings-heading">SIDEBAR SKINS</p>
+                <div class="sidebar-bg-options selected" id="sidebar-default-theme">
+                    <div class="img-ss rounded-circle bg-light border mr-3"></div> Default
+                </div>
+                <div class="sidebar-bg-options" id="sidebar-dark-theme">
+                    <div class="img-ss rounded-circle bg-dark border mr-3"></div> Dark
+                </div>
+                <p class="settings-heading mt-2">HEADER SKINS</p>
+                <div class="color-tiles mx-0 px-4">
+                    <div class="tiles light"></div>
+                    <div class="tiles dark"></div>
+                </div>
+            </div>
+            <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
+                <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
+                    <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html"><img src="/admin/assets/images/logo-mini.svg" alt="logo" /></a>
+                    <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+
+                    <ul class="navbar-nav navbar-nav-right ml-lg-auto">
+
+                        <li class="nav-item nav-profile dropdown border-0">
+                            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
+                                <span class="profile-name">{{Auth::user()->name}}</span>
+                            </a>
+                            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                    <i class="mdi mdi-logout mr-2 text-primary"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+                </div>
+            </nav>
+            <div class="main-panel">
+                <div class="content-wrapper pb-0">
+
+                    <div class="row">
+                        <div class="items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+                            @if (Route::has('login'))
+                            <div>
+                                @auth
+                                <div class="page-header flex-wrap">
+                                    <h3 class="mb-0"> Hi, {{Auth::user()->name}}. Welcome back!</h3>
+                                </div>
+                                <div style="position: relative; right:0px">
+                                    <h5> Registered Projects:</h5>
+                                    <table bgcolor="white">
+                                        <tr style="font-size: 12px;">
+                                            <th style="padding:20px; width:40px;">ID</th>
+                                            <th style="padding:20px; width:40px; ">Title</th>
+                                            <th style="padding:20px; width:40px;">Category</th>
+                                            <th style="padding:20px; width:40px;">Student</th>
+                                            <th style="padding:20px; width:40px;">Start Date</th>
+                                            <th style="padding:20px; width:40px;">End Date</th>
+                                            <th style="padding:20px; width:40px;">Supervisor</th>
+                                            <th style="padding:20px; width:40px;">Examiner 1</th>
+                                            <th style="padding:20px; width:40px;">Examiner 2</th>
+                                            <th style="padding:20px; width:40px;">Duration <br />(Months)</th>
+                                            <th style="padding:20px; width:40px;">Progress</th>
+                                            <th style="padding:20px; width:40px;">Status</th>
+                                            <th style="padding:20px; width:40px;">Operation</th>
+                                        </tr>
+                                        @foreach($projects as $x)
+                                        <tr align="center" style="font-size: 12px;">
+                                            <td>{{$x['id']}}</td>
+                                            <td>{{$x['title']}}</td>
+                                            <td>{{$x['category']}}</td>
+                                            @foreach($students as $y)
+                                            @if($x['studid'] == $y['id'])
+                                            <td>{{$y['name']}}</td>
+                                            @endif
+                                            @endforeach
+                                            <td>{{$x['start_date']}}</td>
+                                            <td>{{$x['end_date']}}</td>
+                                            @foreach($users as $y)
+                                            @if($x['svid'] == $y['id'])
+                                            <td>{{$y['name']}}</td>
+                                            @endif
+                                            @if($x['exid1'] == $y['id'])
+                                            <td>{{$y['name']}}</td>
+                                            @endif
+                                            @if($x['exid2'] == $y['id'])
+                                            <td>{{$y['name']}}</td>
+                                            @endif
+                                            @endforeach
+                                            <td>{{$x['duration']}}</td>
+                                            <td>{{$x['progress']}}</td>
+                                            <td>{{$x['status']}}</td>
+                                            @if (Auth::user()->id == $x['svid'])
+                                            <td style="font-size: 10px;" ; class="button button1"><a href={{"updprojsv/".$x['id']}}> UPDATE </td>
+                                            @else
+                                            <td style="font-size: 10px; background-color:red" ; class="button button1" ;><a href={{"updprojsv/".$x['id']}} style="pointer-events: none"> UPDATE </td>
+                                            @endif
+                                        </tr>
+                                        @endforeach
+
+                                    </table><br>
+                                    <span>
+                                        {{$projects->links()}}
+                                    </span>
+                                    <div class="d-flex">
+                                    </div>
+                                    <br>
+                                    <div class="card">
+                                        <div class="col-xl-4 col-md-6 grid-margin stretch-card">
+                                            <!--datepicker-->
+                                            <div class="card-body">
+                                                <div id="inline-datepicker" class="datepicker table-responsive"></div>
+                                            </div>
+                                        </div>
+                                        <!--datepicker ends-->
+                                    </div>
+                                </div>
+                                <div class="card">
+
+                                </div>
+                                <footer class="footer">
+                                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
+                                    </div>
+                                </footer>
+                            </div>
+
+                            @else
+                            <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+                            @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+                            @endif
+                            @endauth
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main-panel ends -->
     </div>
-    @endif
-</div>
+    <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="/admin/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/admin/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="/admin/assets/vendors/flot/jquery.flot.js"></script>
+    <script src="/admin/assets/vendors/flot/jquery.flot.resize.js"></script>
+    <script src="/admin/assets/vendors/flot/jquery.flot.categories.js"></script>
+    <script src="/admin/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
+    <script src="/admin/assets/vendors/flot/jquery.flot.stack.js"></script>
+    <script src="/admin/assets/vendors/flot/jquery.flot.pie.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/admin/assets/js/off-canvas.js"></script>
+    <script src="/admin/assets/js/hoverable-collapse.js"></script>
+    <script src="/admin/assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="/admin/assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+</body>
+
+</html>

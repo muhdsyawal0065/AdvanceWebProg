@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Breeze Admin</title>
+    <title>Admin Site</title>
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css" />
@@ -13,24 +13,46 @@
     <link rel="stylesheet" href="admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
     <link rel="stylesheet" href="admin/assets/css/style.css" />
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+
 </head>
 <style>
-    input[type=text] {
-        width: 70%;
+    .button {
         border: none;
-        border-bottom: 2px solid #1E90FF;
+        color: white;
+        border-radius: 4px;
+        padding: 4px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
     }
-    input[type=date] {
-        width: 70%;
-        border: none;
-        border-bottom: 2px solid #1E90FF;
+
+    .button1 {
+        background-color: white;
+        color: black;
+        border: 2px solid #FFD700;
     }
-    select {
-        width: 70%;
-        border: none;
-        border-bottom: 2px solid #1E90FF;
+
+    .button1:hover {
+        background-color: #FFD700;
+        color: white;
+    }
+
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #87CEFA;
+    }
+
+    .button2:hover {
+        background-color: #87CEFA;
+        color: white;
     }
 </style>
+
 <body>
     <div class="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -116,57 +138,56 @@
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                <div class="card">
-                                    <div style="padding:30px; position:center">
-                                        <h1> Student Registration </h1>
+                                <h3> Registered Students </h3>
+                                <div style="position: relative; padding:20px; right:0px">
+                                    <table bgcolor="white">
+                                        <tr style="font-size: 12px; text-align:center">
+                                            <th style="padding:20px; width:40px;">ID</th>
+                                            <th style="padding:20px; width:200px;">Name</th>
+                                            <th style="padding:20px; width:200px;">Address</th>
 
-                                        <form action="/add" method="POST">
-                                            @csrf
-                                            <p style="color:red"> * is compulsory </p>
-                                            <div class="form-group">
-                                                <b>ID*</b><br><br>
-                                                <input type="text" name="id" placeholder="Enter Student ID:" required><br>
-                                            </div>
-                                            <div class="form-group">
-                                            <b>Name*</b><br><br>
-                                                <input type="text" name="name" placeholder="Enter Student Name:" required><br>
-                                            </div>
-                                            <div class="form-group">
-                                            <b>Address*</b><br><br>
-                                                <input type="text" name="address" placeholder="Enter Address:" required><br>
-                                            </div>
-                                            <div style="text-align:center">
-                                                <button style="font-size: 12px;" type="reset" class="btn btn-sm ml-3 btn-secondary"> Reset </button>
-                                                <input style="font-size: 12px;" type="submit" class="btn btn-sm ml-3 btn-success" name="submit">
-                                        </form>
-                                        <br>
+                                        </tr>
+                                        @foreach($senarai as $x)
+                                        <tr align="center" style="font-size: 12px;">    
+                                            <td style="padding:10px;">{{$x['id']}}</td>
+                                            <td style="padding:10px;">{{$x['name']}}</td>
+                                            <td style="padding:10px;">{{$x['address']}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </table><br>
+                                    <br>
+
+                                    <div class="card">
+
                                     </div>
+                                    <footer class="footer">
+                                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                                            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
+                                        </div>
+                                    </footer>
                                 </div>
-
-                                @else
-                                <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                                @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                                @endif
-                                @endauth
                             </div>
-                            @endif
                         </div>
                     </div>
                 </div>
-                <div class="card">
- 
-                </div>
-                <footer class="footer">
-                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
-                    </div>
-                </footer>
             </div>
-            <!-- main-panel ends -->
+
+            @else
+            <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+            @if (Route::has('register'))
+            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+            @endif
+            @endauth
         </div>
-        <!-- page-body-wrapper ends -->
+        @endif
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
