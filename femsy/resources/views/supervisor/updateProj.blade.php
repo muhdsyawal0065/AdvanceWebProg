@@ -32,8 +32,48 @@
         border: none;
         border-bottom: 2px solid #1E90FF;
     }
+    .footer {
+        position: fixed;
+        padding-left:80%;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: white;
+        text-align: center;
+    }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                        <script>
+                                            const setup = () => {
+                                                let firstDate = $('#start_date').val();
+                                                let secondDate = $('#end_date').val();
+                                                const findTheDifferenceBetweenTwoDates = (firstDate, secondDate) => {
+                                                    firstDate = new Date(firstDate);
+                                                    secondDate = new Date(secondDate);
+                                                    let timeDifference = Math.abs(secondDate.getTime() - firstDate.getTime());
+                                                    let millisecondsInADay = (1000 * 3600 * 24);
+                                                    let differenceOfDays = Math.ceil(timeDifference / millisecondsInADay);
+                                                    return differenceOfDays;
+                                                }
+                                                let result = findTheDifferenceBetweenTwoDates(firstDate, secondDate);
+                                                result = Math.floor(result / 30)
+                                                $("#duration").val(result);
+                                            }
 
+                                            $(document).ready(function() {
+                                                $('#start_date').change(function() {
+                                                    if ($('#end_date').val() != '') {
+                                                        setup();
+                                                    }
+                                                })
+                                                $('#end_date').change(function() {
+                                                    if ($('#start_date').val() != '') {
+                                                        setup();
+                                                    }
+                                                })
+                                            });
+                                        </script>
 <body>
     <div class="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -44,7 +84,7 @@
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="/admin/assets/images/faces/face1.jpg" alt="profile" />
+                            <img src="/admin/assets/images/faces/profile.png" alt="profile" />
                             <span class="login-status online"></span>
                             <!--change to offline or busy as needed-->
                         </div>
@@ -119,54 +159,55 @@
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                <div class="card">
+                                <div class="card" style="border-radius: 8px;">
                                     <div style="padding:30px; position:center">
                                         <h1> Project Update </h1>
                                         <form action="/editproj" method="POST">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$projects['id']}}"><br>
-                                            <b>Title:</b><br><br>
+                                            <p style="color:red"> * is compulsory </p>
+                                            <b>Title</b><br><br>
                                             <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="title" value="{{$projects['title']}}" readonly><br><br>
-                                            <b>Category:</b><br><br>
+                                            <b>Category</b><br><br>
                                             <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="category" value="{{$projects['category']}}" readonly><br><br>
-                                            <b>Student:</b><br><br>
+                                            <b>Student</b><br><br>
                                             @foreach($students as $row)
                                             @if ($projects['studid'] == $row['id'])
                                             <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="studid" value="{{$row['id']}}" readonly><br><br>
                                             @endif
                                             @endforeach
-                                            <b>Start Date:</b><br><br>
+                                            <b>Start Date*</b><br><br>
                                             <input type="date" name="start_date" id="start_date" value="{{$projects['start_date']}}" required><br><br>
-                                            <b>End Date:</b><br><br>
+                                            <b>End Date*</b><br><br>
                                             <input type="date" name="end_date" id="end_date" value="{{$projects['end_date']}}" required><br><br>
-                                            <b>Supervisor:</b><br><br>
+                                            <b>Supervisor</b><br><br>
                                             @foreach($users as $row)
                                             @if ($projects['svid'] == $row['id'])
                                             <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="svid" value="{{$row['id']}}" readonly><br><br>
                                             @endif
                                             @endforeach
-                                            <b>Examiner 1:</b><br><br>
+                                            <b>Examiner 1</b><br><br>
                                             @foreach($users as $row)
                                             @if ($projects['exid1'] == $row['id'])
                                             <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="exid1" value="{{$row['id']}}" readonly><br><br>
                                             @endif
                                             @endforeach
-                                            <b>Examiner 2:</b><br><br>
+                                            <b>Examiner 2</b><br><br>
                                             @foreach($users as $row)
                                             @if ($projects['exid2'] == $row['id'])
                                             <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="exid2" value="{{$row['id']}}" readonly><br><br>
                                             @endif
                                             @endforeach
-                                            <b>Duration:</b><br><br>
-                                            <input type="text" name="duration" id="duration" value="{{$projects['duration']}}"><br><br>
-                                            <b>Progress:</b><br><br>
+                                            <b>Duration</b><br><br>
+                                            <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="duration" id="duration" value="{{$projects['duration']}}" readonly><br><br>
+                                            <b>Progress*</b><br><br>
                                             <select name="progress" required>
                                                 <option value="">--Please Select--</option>
                                                 <option value="Milestone 1" @if ($projects['progress']=="Milestone 1" ) selected @endif>Milestone 1</option>
                                                 <option value="Milestone 2" @if ($projects['progress']=="Milestone 2" ) selected @endif>Milestone 2</option>
                                                 <option value="Final Report" @if ($projects['progress']=="Final Report" ) selected @endif>Final Report</option>
                                             </select><br><br>
-                                            <b>Status:</b><br><br>
+                                            <b>Status*</b><br><br>
                                             <select name="status" required>
                                                 <option value="">--Please Select--</option>
                                                 <option value="On Track" @if ($projects['status']=="On Track" ) selected @endif>On Track</option>
@@ -183,7 +224,7 @@
                                 </div>
 
 
-                            </div>
+                            </div><br><br><br><br><br><br>
                             <div class="card">
 
                             </div>

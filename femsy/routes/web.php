@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Route::get("/redirect", [projectControl::class,"redirectFunct"]);
 Route::get("/list", [studentControl::class,"show"]);
+Route::get("/list2", [studentControl::class,"showsv"]);
 
 Route::get("list", [studentControl::class, "show"]);
 Route::view("push","coordinator/addStud");

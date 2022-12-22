@@ -44,12 +44,22 @@
     .button2 {
         background-color: white;
         color: black;
-        border: 2px solid #87CEFA;
+        border: 2px solid #DC143C;
     }
 
     .button2:hover {
-        background-color: #87CEFA;
+        background-color: #DC143C;
         color: white;
+    }
+    .footer {
+        position: fixed;
+        padding-left:80%;
+        left: 0%;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: white;
+        text-align: center;
     }
 </style>
 
@@ -64,7 +74,7 @@
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="admin/assets/images/faces/face1.jpg" alt="profile" />
+                            <img src="admin/assets/images/faces/profile.png" alt="profile" />
                             <span class="login-status online"></span>
                             <!--change to offline or busy as needed-->
                         </div>
@@ -74,10 +84,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{('/list')}}">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="mdi mdi-contacts menu-icon"></i>
-                        <span class="menu-title">User</span>
+                        <span class="menu-title">Users</span>
+                        <i class="menu-arrow"></i>
                     </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list')}}">Students</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list2')}}">Users</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{('redirect')}}">
@@ -143,8 +164,12 @@
                                     <h3 class="mb-0"> Hi, {{Auth::user()->name}}. Welcome back!</h3>
                                 </div>
                                 <div style="position: relative; right:0px">
-                                <h5> Registered Projects</h5>
-                                    <table bgcolor="white">
+                                    <h5> Registered Projects
+                                        <div class="d-flex" style="float:right">
+                                            <a style="font-size: 12px;" ; class="btn btn-sm ml-3 btn-success" ; href={{('pushproj')}}> Add New Project </a>
+                                        </div><br>
+                                    </h5><br>
+                                    <table bgcolor="white" style="border-radius: 8px;">
                                         <tr style="font-size: 12px;">
                                             <th style="padding:20px">ID</th>
                                             <th style="padding:20px">Title</th>
@@ -166,12 +191,24 @@
                                             <td>{{$x['id']}}</td>
                                             <td>{{$x['title']}}</td>
                                             <td>{{$x['category']}}</td>
-                                            <td>{{$x['studid']}}</td>
+                                            @foreach($students as $y)
+                                            @if($x['studid'] == $y['id'])
+                                            <td>{{$y['name']}}</td>
+                                            @endif
+                                            @endforeach
                                             <td>{{$x['start_date']}}</td>
                                             <td>{{$x['end_date']}}</td>
-                                            <td>{{$x['svid']}}</td>
-                                            <td>{{$x['exid1']}}</td>
-                                            <td>{{$x['exid2']}}</td>
+                                            @foreach($users as $y)
+                                            @if($x['svid'] == $y['id'])
+                                            <td>{{$y['name']}}</td>
+                                            @endif
+                                            @if($x['exid1'] == $y['id'])
+                                            <td>{{$y['name']}}</td>
+                                            @endif
+                                            @if($x['exid2'] == $y['id'])
+                                            <td>{{$y['name']}}</td>
+                                            @endif
+                                            @endforeach
                                             <td>{{$x['duration']}}</td>
                                             <td>{{$x['progress']}}</td>
                                             <td>{{$x['status']}}</td>
@@ -180,11 +217,11 @@
                                         </tr>
                                         @endforeach
                                     </table><br>
-                                    <div class="d-flex">
-                                        <a style="font-size: 12px;" ; class="btn btn-sm ml-3 btn-success" ; href={{('pushproj')}}> Add New Project </a>
-                                    </div>
-                                    <br>
-                                    <div class="card">
+                                    <span>
+                                        {{$projects->links()}}
+                                    </span>
+
+                                    <div class="card" style="border-radius: 8px;">
                                         <div class="col-xl-4 col-md-6 grid-margin stretch-card">
                                             <!--datepicker-->
                                             <div class="card-body">
@@ -194,6 +231,7 @@
                                         <!--datepicker ends-->
                                     </div>
                                 </div>
+                                <br><br><br><br><br>
                                 <div class="card">
 
                                 </div>

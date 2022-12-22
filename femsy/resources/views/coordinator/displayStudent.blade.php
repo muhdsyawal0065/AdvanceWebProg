@@ -44,12 +44,22 @@
     .button2 {
         background-color: white;
         color: black;
-        border: 2px solid #87CEFA;
+        border: 2px solid #DC143C;
     }
 
     .button2:hover {
-        background-color: #87CEFA;
+        background-color: #DC143C;
         color: white;
+    }
+    .footer {
+        position: fixed;
+        padding-left:80%;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: white;
+        text-align: center;
     }
 </style>
 
@@ -63,7 +73,7 @@
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="admin/assets/images/faces/face1.jpg" alt="profile" />
+                            <img src="admin/assets/images/faces/profile.png" alt="profile" />
                             <span class="login-status online"></span>
                             <!--change to offline or busy as needed-->
                         </div>
@@ -73,10 +83,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{('/list')}}">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="mdi mdi-contacts menu-icon"></i>
-                        <span class="menu-title">User</span>
+                        <span class="menu-title">Users</span>
+                        <i class="menu-arrow"></i>
                     </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list')}}">Students</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list2')}}">Users</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{('redirect')}}">
@@ -138,9 +159,12 @@
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                <h3> Registered Students </h3>
+                                <h3 style="padding-left:3%;"> Registered Students </h3>
+                                <div class="d-flex" style="padding-left:75%;">
+                                    <a style="font-size: 12px;" class="btn btn-sm ml-3 btn-success" ; href={{('push')}}> Add New Student </a>
+                                </div>
                                 <div style="position: relative; padding:20px; right:0px">
-                                    <table bgcolor="white">
+                                    <table bgcolor="white" style="border-radius: 8px;">
                                         <tr style="font-size: 12px; text-align:center">
                                             <th style="padding:20px; width:40px;">ID</th>
                                             <th style="padding:20px; width:200px;">Name</th>
@@ -149,7 +173,7 @@
 
                                         </tr>
                                         @foreach($senarai as $x)
-                                        <tr align="center" style="font-size: 12px;">    
+                                        <tr align="center" style="font-size: 12px;">
                                             <td style="padding:10px;">{{$x['id']}}</td>
                                             <td style="padding:10px;">{{$x['name']}}</td>
                                             <td style="padding:10px;">{{$x['address']}}</td>
@@ -158,35 +182,31 @@
                                         </tr>
                                         @endforeach
                                     </table><br>
-                                    <div class="d-flex">
-                                        <a style="font-size: 12px;" ; class="btn btn-sm ml-3 btn-success" ; href={{('push')}}> Add New Student </a>
-                                    </div>
                                     <br>
-
-                                    <div class="card">
-
+                                <span>
+                                    {{$senarai->links()}}
+                                </span>
+                                <footer class="footer">
+                                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
                                     </div>
-                                    <footer class="footer">
-                                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                                            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
-                                        </div>
-                                    </footer>
-                                </div>
+                                </footer>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            @else
-            <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-            @endif
-            @endauth
         </div>
+
+        @else
+        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+        @if (Route::has('register'))
+        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
         @endif
+        @endauth
+    </div>
+    @endif
     </div>
     </div>
     </div>

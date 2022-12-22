@@ -27,7 +27,7 @@ class projectControl extends Controller
 
         $data = Student::all();
         $data2 = User::all();
-        $output = Project::all();
+        $output = Project::paginate(2);
         $typeuser = Auth::user()->usertype;
         if ($typeuser == '1') {
             return view('coordinator/display', ['projects' => $output, 'students' => $data, 'users' => $data2]);
@@ -80,6 +80,7 @@ class projectControl extends Controller
     }
     function updateProject(Request $req)
     {
+        
         $typeuser = Auth::user()->usertype;
         if ($typeuser == '1') {
             $stud = Project::find($req->id);
@@ -112,7 +113,7 @@ class projectControl extends Controller
             $stud->progress = $req->progress;
             $stud->status = $req->status;
             $stud->save();
-            return redirect('senaraiprojsv');
+            return redirect('senaraiproj');
         }
     }
 }

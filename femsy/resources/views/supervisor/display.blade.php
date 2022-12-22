@@ -55,6 +55,16 @@
     .w-5 {
         display: none
     }
+    .footer {
+        position: fixed;
+        padding-left:80%;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: white;
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -67,7 +77,7 @@
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="/admin/assets/images/faces/face1.jpg" alt="profile" />
+                            <img src="/admin/assets/images/faces/profile.png" alt="profile" />
                             <span class="login-status online"></span>
                             <!--change to offline or busy as needed-->
                         </div>
@@ -147,7 +157,7 @@
                                 </div>
                                 <div style="position: relative; right:0px">
                                     <h5> Registered Projects:</h5>
-                                    <table bgcolor="white">
+                                    <table bgcolor="white" style="border-radius: 8px;">
                                         <tr style="font-size: 12px;">
                                             <th style="padding:20px; width:40px;">ID</th>
                                             <th style="padding:20px; width:40px; ">Title</th>
@@ -192,7 +202,7 @@
                                             @if (Auth::user()->id == $x['svid'])
                                             <td style="font-size: 10px;" ; class="button button1"><a href={{"updprojsv/".$x['id']}}> UPDATE </td>
                                             @else
-                                            <td style="font-size: 10px; background-color:red" ; class="button button1" ;><a href={{"updprojsv/".$x['id']}} style="pointer-events: none"> UPDATE </td>
+                                            <td style="font-size: 10px; border:2px #DCDCDC; background-color:#DCDCDC" ; class="button button1" ;><a href={{"updprojsv/".$x['id']}} style="pointer-events: none"> UPDATE </td>
                                             @endif
                                         </tr>
                                         @endforeach
@@ -204,7 +214,7 @@
                                     <div class="d-flex">
                                     </div>
                                     <br>
-                                    <div class="card">
+                                    <div class="card" style="border-radius: 8px;">
                                         <div class="col-xl-4 col-md-6 grid-margin stretch-card">
                                             <!--datepicker-->
                                             <div class="card-body">
@@ -214,6 +224,7 @@
                                         <!--datepicker ends-->
                                     </div>
                                 </div>
+                                <br><br><br><br>
                                 <div class="card">
 
                                 </div>

@@ -30,6 +30,16 @@
         border: none;
         border-bottom: 2px solid #1E90FF;
     }
+    .footer {
+        position: fixed;
+        padding-left:80%;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: white;
+        text-align: center;
+    }
 </style>
 <body>
     <div class="container-scroller">
@@ -41,7 +51,7 @@
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="admin/assets/images/faces/face1.jpg" alt="profile" />
+                            <img src="admin/assets/images/faces/profile.png" alt="profile" />
                             <span class="login-status online"></span>
                             <!--change to offline or busy as needed-->
                         </div>
@@ -51,10 +61,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{('/list')}}">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="mdi mdi-contacts menu-icon"></i>
-                        <span class="menu-title">User</span>
+                        <span class="menu-title">Users</span>
+                        <i class="menu-arrow"></i>
                     </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list')}}">Students</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list2')}}">Users</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{('redirect')}}">
@@ -116,7 +137,7 @@
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                <div class="card">
+                                <div class="card" style="border-radius: 8px;">
                                     <div style="padding:30px; position:center">
                                         <h1> Student Registration </h1>
 

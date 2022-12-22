@@ -5,30 +5,51 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Breeze Admin</title>
-    <link rel="stylesheet" href="/admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
-    <link rel="stylesheet" href="/admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
-    <link rel="stylesheet" href="/admin/assets/vendors/css/vendor.bundle.base.css" />
-    <link rel="stylesheet" href="/admin/assets/vendors/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
-    <link rel="stylesheet" href="/admin/assets/css/style.css" />
-    <link rel="shortcut icon" href="/admin/assets/images/favicon.png" />
+    <title>Admin Site</title>
+    <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="admin/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="admin/assets/css/style.css" />
+    <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+
 </head>
 <style>
-    input[type=text] {
-        width: 70%;
+    .button {
         border: none;
-        border-bottom: 2px solid #1E90FF;
+        color: white;
+        border-radius: 4px;
+        padding: 4px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
     }
-    input[type=date] {
-        width: 70%;
-        border: none;
-        border-bottom: 2px solid #1E90FF;
+
+    .button1 {
+        background-color: white;
+        color: black;
+        border: 2px solid #FFD700;
     }
-    select {
-        width: 70%;
-        border: none;
-        border-bottom: 2px solid #1E90FF;
+
+    .button1:hover {
+        background-color: #FFD700;
+        color: white;
+    }
+
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #DC143C;
+    }
+
+    .button2:hover {
+        background-color: #DC143C;
+        color: white;
     }
     .footer {
         position: fixed;
@@ -41,17 +62,18 @@
         text-align: center;
     }
 </style>
+
 <body>
     <div class="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-                <a class="sidebar-brand brand-logo" href="{{('redirect')}}"><img src="/admin/assets/images/logo.png" alt="logo" /></a>
+                <a class="sidebar-brand brand-logo" href="{{('redirect')}}"><img src="admin/assets/images/logo.png" alt="logo" /></a>
             </div>
             <ul class="nav">
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="/admin/assets/images/faces/face1.jpg" alt="profile" />
+                            <img src="admin/assets/images/faces/profile.png" alt="profile" />
                             <span class="login-status online"></span>
                             <!--change to offline or busy as needed-->
                         </div>
@@ -72,7 +94,7 @@
                                 <a class="nav-link" href="{{('/list')}}">Students</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{('/list2')}}">Users</a>
+                                <a class="nav-link" href="pages/ui-features/dropdowns.html">Users</a>
                             </li>
                         </ul>
                     </div>
@@ -103,7 +125,7 @@
             </div>
             <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
                 <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
-                    <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html"><img src="/admin/assets/images/logo-mini.svg" alt="logo" /></a>
+                    <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html"><img src="admin/assets/images/logo-mini.svg" alt="logo" /></a>
                     <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
                         <i class="mdi mdi-menu"></i>
                     </button>
@@ -137,79 +159,76 @@
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                <div class="card">
-                                    <div style="padding:30px; position:center">
-                                        <h1> Student Update </h1>
-
-                                        <form action="/edit" method="POST">
-                                            @csrf
-                                            <p style="color:red"> * is compulsory </p>
-                                            <div class="form-group">
-                                            <b>ID: {{$students['id']}}</b><br>
-                                                <input type="hidden" name="id" value="{{$students['id']}}" readonly>
-                                            </div>
-                                            <div class="form-group">
-                                            <b>Name*</b><br><br>
-                                                <input type="text" name="name" placeholder="Enter Student Name:" value="{{$students['name']}}" required><br>
-                                            </div>
-                                            <div class="form-group">
-                                            <b>Address*</b><br><br>
-                                                <input type="text" name="address" placeholder="Enter Address:" value="{{$students['address']}}" required><br>
-                                            </div>
-                                            <div style="text-align:center">
-                                                <button style="font-size: 12px;" type="reset" class="btn btn-sm ml-3 btn-secondary"> Reset </button>
-                                                <input style="font-size: 12px;" type="submit" class="btn btn-sm ml-3 btn-success" name="submit">
-                                        </form>
-                                        <br>
+                                <h3 style="padding-left:4%;"> Registered Users </h3>
+                                <div style="position: relative; padding:20px; right:0px">
+                                    <table bgcolor="white" style="border-radius: 8px;">
+                                        <tr style="font-size: 12px; text-align:center">
+                                            <th style="padding:20px; width:40px;">ID</th>
+                                            <th style="padding:20px; width:200px;">Name</th>
+                                            <th style="padding:20px; width:200px;">Email</th>
+                                        </tr>
+                                        @foreach($users as $x)
+                                        <tr align="center" style="font-size: 12px;">
+                                            <td style="padding:10px;">{{$x['id']}}</td>
+                                            <td style="padding:10px;">{{$x['name']}}</td>
+                                            <td style="padding:10px;">{{$x['email']}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </table><br>
+                                    <br>
+                                <span>
+                                    {{$users->links()}}
+                                </span>
+                                <footer class="footer">
+                                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
                                     </div>
-                                </div>
-
-                                @else
-                                <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                                @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                                @endif
-                                @endauth
+                                </footer>
                             </div>
-                            @endif
                         </div>
                     </div>
                 </div>
-                <div class="card">
- 
-                </div>
-                <footer class="footer">
-                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © FEMSY 2022</span>
-                    </div>
-                </footer>
             </div>
-            <!-- main-panel ends -->
         </div>
-        <!-- page-body-wrapper ends -->
+
+        @else
+        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
+
+        @if (Route::has('register'))
+        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+        @endif
+        @endauth
+    </div>
+    @endif
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
-    <script src="/admin/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="admin/assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
-    <script src="/admin/assets/vendors/chart.js/Chart.min.js"></script>
-    <script src="/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <script src="/admin/assets/vendors/flot/jquery.flot.js"></script>
-    <script src="/admin/assets/vendors/flot/jquery.flot.resize.js"></script>
-    <script src="/admin/assets/vendors/flot/jquery.flot.categories.js"></script>
-    <script src="/admin/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
-    <script src="/admin/assets/vendors/flot/jquery.flot.stack.js"></script>
-    <script src="/admin/assets/vendors/flot/jquery.flot.pie.js"></script>
+    <script src="admin/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="admin/assets/vendors/flot/jquery.flot.js"></script>
+    <script src="admin/assets/vendors/flot/jquery.flot.resize.js"></script>
+    <script src="admin/assets/vendors/flot/jquery.flot.categories.js"></script>
+    <script src="admin/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
+    <script src="admin/assets/vendors/flot/jquery.flot.stack.js"></script>
+    <script src="admin/assets/vendors/flot/jquery.flot.pie.js"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-    <script src="/admin/assets/js/off-canvas.js"></script>
-    <script src="/admin/assets/js/hoverable-collapse.js"></script>
-    <script src="/admin/assets/js/misc.js"></script>
+    <script src="admin/assets/js/off-canvas.js"></script>
+    <script src="admin/assets/js/hoverable-collapse.js"></script>
+    <script src="admin/assets/js/misc.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page -->
-    <script src="/admin/assets/js/dashboard.js"></script>
+    <script src="admin/assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
 </body>
 

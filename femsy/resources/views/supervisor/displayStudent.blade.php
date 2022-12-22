@@ -51,6 +51,16 @@
         background-color: #87CEFA;
         color: white;
     }
+    .footer {
+        position: fixed;
+        padding-left:80%;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: white;
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -63,7 +73,7 @@
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="admin/assets/images/faces/face1.jpg" alt="profile" />
+                            <img src="admin/assets/images/faces/profile.png" alt="profile" />
                             <span class="login-status online"></span>
                             <!--change to offline or busy as needed-->
                         </div>
@@ -138,22 +148,38 @@
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                <h3> Registered Students </h3>
+                                <h3 style="padding-left:3%;"> Registered Students </h3>
                                 <div style="position: relative; padding:20px; right:0px">
-                                    <table bgcolor="white">
+                                    <table bgcolor="white" style="border-radius: 8px;">
                                         <tr style="font-size: 12px; text-align:center">
                                             <th style="padding:20px; width:40px;">ID</th>
                                             <th style="padding:20px; width:200px;">Name</th>
                                             <th style="padding:20px; width:200px;">Address</th>
+                                            <th style="padding:20px; width:200px;">Supervisor</th>
+                                            <th style="padding:20px; width:200px;">Project</th>
 
                                         </tr>
-                                        @foreach($senarai as $x)
-                                        <tr align="center" style="font-size: 12px;">    
-                                            <td style="padding:10px;">{{$x['id']}}</td>
-                                            <td style="padding:10px;">{{$x['name']}}</td>
-                                            <td style="padding:10px;">{{$x['address']}}</td>
+                                        @foreach($projects as $x)
+                                        <tr align="center" style="font-size: 12px;"> 
+                                        @if(Auth::user()->id == $x['svid'])
+                                            @foreach($senarai as $y)
+                                            @if($x['studid'] == $y['id'])
+                                            <td style="padding:10px;">{{$y['id']}}</td>
+                                            <td style="padding:10px;">{{$y['name']}}</td>
+                                            <td style="padding:10px;">{{$y['address']}}</td>
+                                            @endif
+                                            @endforeach
+                                            @foreach($users as $z)
+                                            @if($x['svid'] == $z['id'])
+                                            <td style="padding:10px;">{{$z['name']}}</td>
+                                            @endif
+                                            @endforeach
+                                            <td style="padding:10px;">{{$x['title']}}</td>
+                                            @endif
+                                            
                                         </tr>
                                         @endforeach
+                                        
                                     </table><br>
                                     <br>
 

@@ -30,13 +30,23 @@
         border: none;
         border-bottom: 2px solid #1E90FF;
     }
+    .footer {
+        position: fixed;
+        padding-left:80%;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: white;
+        text-align: center;
+    }
 </style>
 
 <body>
     <div class="container-scroller">
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-                <a class="sidebar-brand brand-logo" href="{{('/redirect')}}"><img src="/admin/assets/images/logo.png alt="logo" /></a>
+                <a class="sidebar-brand brand-logo" href="{{('/redirect')}}"><img src="/admin/assets/images/logo.png" alt="logo" /></a>
             </div>
             <ul class="nav">
                 <li class="nav-item nav-profile">
@@ -52,10 +62,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{('/list')}}">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="mdi mdi-contacts menu-icon"></i>
-                        <span class="menu-title">User</span>
+                        <span class="menu-title">Users</span>
+                        <i class="menu-arrow"></i>
                     </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list')}}">Students</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list2')}}">Users</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{('/redirect')}}">
@@ -117,22 +138,22 @@
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                <div class="card">
+                                <div class="card" style="border-radius: 8px;">
                                     <div style="padding:30px; position:center">
                                         <h1> Project Update </h1>
                                         <form action="/editproj" method="POST">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$projects['id']}}"><br>
                                             <p style="color:red"> * is compulsory </p>
-                                            Title*<br>
+                                            <b>Title*</b><br><br>
                                             <input type="text" name="title" value="{{$projects['title']}}" required><br><br>
-                                            Category*<br>
+                                            <b>Category*</b><br><br>
                                             <select name="category" required>
                                                 <option value="" selected>--Please Select--</option>
                                                 <option value="Development" @if ($projects['category']=="Development" ) selected @endif>Development</option>
                                                 <option value="Research" @if ($projects['category']=="Research" ) selected @endif>Research</option>
                                             </select><br><br>
-                                            Student*<br>
+                                            <b>Student*</b><br><br>
                                             <select name="studid" required>
                                                 <option value="">--Please Select--</option>
                                                 @foreach($students as $row)
@@ -143,11 +164,11 @@
                                                 @endif
                                                 @endforeach
                                             </select><br><br>
-                                            Start Date*<br>
+                                            <b>Start Date*</b><br><br>
                                             <input type="date" name="start_date" id="start_date" value="{{$projects['start_date']}}" required><br><br>
-                                            End Date*<br>
+                                            <b>End Date*</b><br><br>
                                             <input type="date" name="end_date" id="end_date" value="{{$projects['end_date']}}" required><br><br>
-                                            Supervisor*<br>
+                                            <b>Supervisor*</b><br><br>
                                             <select name="svid" id="svid" required>
                                                 <option value="">--Please Select--</option>
                                                 @foreach($users as $row)
@@ -158,7 +179,7 @@
                                                 @endif
                                                 @endforeach
                                             </select><br><br>
-                                            Examiner 1*<br>
+                                            <b>Examiner 1*</b><br><br>
                                             <select name="exid1" id="exid1" required>
                                                 <option value="">--Please Select--</option>
                                                 @foreach($users as $row)
@@ -169,7 +190,7 @@
                                                 @endif
                                                 @endforeach
                                             </select><br><br>
-                                            Examiner 2*<br>
+                                            <b>Examiner 2*</b><br><br>
                                             <select name="exid2" id="exid2" required>
                                                 <option value="">--Please Select--</option>
                                                 @foreach($users as $row)
@@ -180,16 +201,16 @@
                                                 @endif
                                                 @endforeach
                                             </select><br><br>
-                                            Duration<br>
-                                            <input type="text" name="duration" id="duration" value="{{$projects['duration']}}"><br><br>
-                                            Progress*<br>
+                                            <b>Duration</b><br><br>
+                                            <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="duration" id="duration" value="{{$projects['duration']}}"><br><br>
+                                            <b>Progress*<br><br>
                                             <select name="progress" required>
                                                 <option value="">--Please Select--</option>
                                                 <option value="Milestone 1" @if ($projects['progress']=="Milestone 1" ) selected @endif>Milestone 1</option>
                                                 <option value="Milestone 2" @if ($projects['progress']=="Milestone 2" ) selected @endif>Milestone 2</option>
                                                 <option value="Final Report" @if ($projects['progress']=="Final Report" ) selected @endif>Final Report</option>
                                             </select><br><br>
-                                            Status*<br>
+                                            <b>Status*</b><br><br>
                                             <select name="status" required>
                                                 <option value="">--Please Select--</option>
                                                 <option value="On Track" @if ($projects['status']=="On Track" ) selected @endif>On Track</option>

@@ -14,6 +14,36 @@
     <link rel="stylesheet" href="admin/assets/css/style.css" />
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
 </head>
+<style>
+    input[type=text] {
+        width: 70%;
+        border: none;
+        border-bottom: 2px solid #1E90FF;
+    }
+
+    input[type=date] {
+        width: 70%;
+        border: none;
+        border-bottom: 2px solid #1E90FF;
+    }
+
+    select {
+        width: 70%;
+        border: none;
+        border-bottom: 2px solid #1E90FF;
+    }
+    .footer {
+        position: fixed;
+        padding-left:80%;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: white;
+        text-align: center;
+    }
+
+</style>
 
 <body>
     <div class="container-scroller">
@@ -25,7 +55,7 @@
                 <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="nav-profile-image">
-                            <img src="admin/assets/images/faces/face1.jpg" alt="profile" />
+                            <img src="admin/assets/images/faces/profile.png" alt="profile" />
                             <span class="login-status online"></span>
                             <!--change to offline or busy as needed-->
                         </div>
@@ -35,10 +65,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{('/list')}}">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                         <i class="mdi mdi-contacts menu-icon"></i>
-                        <span class="menu-title">User</span>
+                        <span class="menu-title">Users</span>
+                        <i class="menu-arrow"></i>
                     </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list')}}">Students</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{('/list2')}}">Users</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{('redirect')}}">
@@ -100,7 +141,7 @@
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                <div class="card">
+                                <div class="card" style="border-radius: 8px;">
                                     <div style="padding:30px; position:center">
                                         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
                                         <script>
@@ -137,59 +178,59 @@
                                         <form action="/addProject" method="POST">
                                             @csrf
                                             <div class="form-group">
-                                                <input style="border-radius:3px; border: 2px solid #b3b3cc" type="hidden" name="id" placeholder="Enter Student ID:"><br>
+                                                <input type="hidden" name="id" placeholder="Enter Student ID:"><br>
                                                 <p style="color:red"> * is compulsory </p>
-                                                Title*<br>
-                                                <input style="border-radius:3px; border: 2px solid #b3b3cc" type="text" name="title" placeholder="Enter Title:" required><br><br>
-                                                Category*<br>
-                                                <select style="border-radius:3px; border: 2px solid #b3b3cc" name="category" required>
+                                                <b>Title*</b><br><br>
+                                                <input type="text" name="title" placeholder="Enter Title:" required><br><br>
+                                                <b>Category*</b><br><br>
+                                                <select type="text" name="category" required>
                                                     <option value="" selected>--Please Select--</option>
                                                     <option value="Development">Development</option>
                                                     <option value="Research">Research</option>
                                                 </select><br><br>
-                                                Student*<br>
-                                                <select style="border-radius:3px; border: 2px solid #b3b3cc" name="studid" required>
+                                                <b>Student*</b><br><br>
+                                                <select type="text" name="studid" required>
                                                     <option value="" selected>--Please Select--</option>
                                                     @foreach($students as $row)
                                                     <option>{{$row['id']}}</option>
                                                     @endforeach
                                                 </select><br><br>
-                                                Start Date*<br>
-                                                <input style="border-radius:3px; border: 2px solid #b3b3cc" type="date" name="start_date" id="start_date" placeholder="Date:" required><br><br>
-                                                End Date* :<br>
-                                                <input style="border-radius:3px; border: 2px solid #b3b3cc" type="date" name="end_date" id="end_date" placeholder="Date:" required><br><br>
-                                                Supervisor*<br>
-                                                <select style="border-radius:3px; border: 2px solid #b3b3cc" name="svid" required>
+                                                <b>Start Date*</b><br><br>
+                                                <input type="date" name="start_date" id="start_date" placeholder="Date:" required><br><br>
+                                                <b>End Date*</b><br><br>
+                                                <input type="date" name="end_date" id="end_date" placeholder="Date:" required><br><br>
+                                                <b>Supervisor*</b><br><br>
+                                                <select type="text" name="svid" required>
                                                     <option value="" selected>--Please Select--</option>
                                                     @foreach($users as $row)
                                                     <option>{{$row['id']}}</option>
                                                     @endforeach
                                                 </select><br><br>
-                                                Examiner 1*<br>
-                                                <select style="border-radius:3px; border: 2px solid #b3b3cc" name="exid1" required>
+                                                <b>Examiner 1*</b><br><br>
+                                                <select type="text" name="exid1" required>
                                                     <option value="" selected>--Please Select--</option>
                                                     @foreach($users as $row)
                                                     <option>{{$row['id']}}</option>
                                                     @endforeach
                                                 </select><br><br>
-                                                Examiner 2*<br>
-                                                <select style="border-radius:3px; border: 2px solid #b3b3cc" name="exid2" required>
+                                                <b>Examiner 2*</b><br><br>
+                                                <select type="text" name="exid2" required>
                                                     <option value="" selected>--Please Select--</option>
                                                     @foreach($users as $row)
                                                     <option>{{$row['id']}}</option>
                                                     @endforeach
                                                 </select><br><br>
-                                                Duration<br>
-                                                <input style="border-radius:3px; border: 2px solid #b3b3cc" type="text" name="duration" id="duration" placeholder="Duration:" readonly required><br><br>
-                                                Progress*<br>
-                                                <select style="border-radius:3px; border: 2px solid #b3b3cc" name="progress" required>
+                                                <b>Duration</b><br><br>
+                                                <input style="border-bottom: 2px solid #DCDCDC;" type="text" name="duration" id="duration" readonly required><br><br>
+                                                <b>Progress*</b><br><br>
+                                                <select type="text" name="progress" required>
                                                     <option value="" selected>--Please Select--</option>
                                                     <option value="Milestone 1">Milestone 1</option>
                                                     <option value="Milestone 2">Milestone 2</option>
                                                     <option value="Final Report">Final Report</option>
                                                 </select><br><br>
-                                                Status*<br>
-                                                <select style="border-radius:3px; border: 2px solid #b3b3cc" type="text" name="status" required>
+                                                <b>Status*</b><br><br>
+                                                <select type="text" name="status" required>
                                                     <option value="" selected>--Please Select--</option>
                                                     <option value="On Track">On Track</option>
                                                     <option value="Delayed">Delayed</option>
@@ -216,7 +257,7 @@
                             @endif
                         </div>
                     </div>
-                </div>
+                </div><br><br><br><br>
                 <div class="card">
 
                 </div>

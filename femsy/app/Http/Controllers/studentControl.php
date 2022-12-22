@@ -11,13 +11,26 @@ class studentControl extends Controller
 {
     function show()
     {
-        $output = Student::all();
+        $output = Student::paginate(2);
+        $data = Student::all();
         $data2 = User::all();
+        $data3 = Project::all();
         $typeuser = Auth::user()->usertype;
         if ($typeuser == '1') {
-            return view('coordinator/displayStudent', ['senarai'=>$output, 'users' => $data2]);
+            return view('coordinator/displayStudent', ['senarai'=>$output, 'users' => $data2, 'projects' => $data3]);
         } else {
-            return view('supervisor/displayStudent', ['senarai'=>$output, 'users' => $data2]);
+            return view('supervisor/displayStudent', ['senarai'=>$data, 'users' => $data2, 'projects' => $data3]);
+        }
+    }
+    function showsv()
+    {
+        $data2 = User::paginate(2);
+        $data3 = Project::all();
+        $typeuser = Auth::user()->usertype;
+        if ($typeuser == '1') {
+            return view('coordinator/displaySV', ['users' => $data2, 'projects' => $data3]);
+        } else {
+            return view('supervisor/displaySV', ['users' => $data2, 'projects' => $data3]);
         }
     }
     function addData(Request $req)
@@ -30,7 +43,7 @@ class studentControl extends Controller
         $stud->address = $req->address;
         $stud->last_updated = $current_date_time;
         $stud->save();
-        return redirect('senaraiproj');
+        return redirect('list');
     }
     function deleteStud($id)
     {
@@ -40,8 +53,10 @@ class studentControl extends Controller
     }
     function showStud($id)
     {
-        $data=Student::find($id);
-        return view('coordinator/updateStud', ['disp'=>$data]);
+        $data = Student::find($id);
+        $data2 = User::all();
+        $data3 = Project::all();
+        return view('coordinator/updateStud', ['students'=>$data, 'users' => $data2, 'projects' => $data3]);
     }
     function update(Request $req)
     {
