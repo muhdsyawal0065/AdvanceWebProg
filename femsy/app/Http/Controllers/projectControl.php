@@ -14,7 +14,7 @@ class projectControl extends Controller
     {
         $data = Student::all();
         $data2 = User::all();
-        $output = Project::paginate(2);
+        $output = Project::paginate(4);
         $typeuser = Auth::user()->usertype;
         if ($typeuser == '1') {
             return view('coordinator/display', ['projects' => $output, 'students' => $data, 'users' => $data2]);
@@ -27,7 +27,7 @@ class projectControl extends Controller
 
         $data = Student::all();
         $data2 = User::all();
-        $output = Project::paginate(2);
+        $output = Project::paginate(4);
         $typeuser = Auth::user()->usertype;
         if ($typeuser == '1') {
             return view('coordinator/display', ['projects' => $output, 'students' => $data, 'users' => $data2]);

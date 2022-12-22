@@ -11,7 +11,7 @@ class studentControl extends Controller
 {
     function show()
     {
-        $output = Student::paginate(2);
+        $output = Student::paginate(4);
         $data = Student::all();
         $data2 = User::all();
         $data3 = Project::all();
@@ -24,7 +24,7 @@ class studentControl extends Controller
     }
     function showsv()
     {
-        $data2 = User::paginate(2);
+        $data2 = User::paginate(4);
         $data3 = Project::all();
         $typeuser = Auth::user()->usertype;
         if ($typeuser == '1') {

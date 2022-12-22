@@ -188,30 +188,34 @@
                                         </tr>
                                         @foreach($projects as $x)
                                         <tr align="center" style="font-size: 12px;">
-                                            <td>{{$x['id']}}</td>
-                                            <td>{{$x['title']}}</td>
-                                            <td>{{$x['category']}}</td>
+                                            <td style="padding:20px;">{{$x['id']}}</td>
+                                            <td style="padding:20px;">{{$x['title']}}</td>
+                                            <td style="padding:20px;">{{$x['category']}}</td>
                                             @foreach($students as $y)
                                             @if($x['studid'] == $y['id'])
-                                            <td>{{$y['name']}}</td>
+                                            <td style="padding:20px;">{{$y['name']}}</td>
                                             @endif
                                             @endforeach
-                                            <td>{{$x['start_date']}}</td>
-                                            <td>{{$x['end_date']}}</td>
-                                            @foreach($users as $y)
-                                            @if($x['svid'] == $y['id'])
-                                            <td>{{$y['name']}}</td>
-                                            @endif
-                                            @if($x['exid1'] == $y['id'])
-                                            <td>{{$y['name']}}</td>
-                                            @endif
-                                            @if($x['exid2'] == $y['id'])
-                                            <td>{{$y['name']}}</td>
+                                            <td style="padding:20px;">{{$x['start_date']}}</td>
+                                            <td style="padding:20px;">{{$x['end_date']}}</td>
+                                            @foreach($users as $z)
+                                            @if($x['svid'] == $z['id'])
+                                            <td style="padding:20px;">{{$z['name']}}</td>
                                             @endif
                                             @endforeach
-                                            <td>{{$x['duration']}}</td>
-                                            <td>{{$x['progress']}}</td>
-                                            <td>{{$x['status']}}</td>
+                                            @foreach($users as $z)
+                                            @if($x['exid1'] == $z['id'])
+                                            <td style="padding:20px;">{{$z['name']}}</td>
+                                            @endif
+                                            @endforeach
+                                            @foreach($users as $z)
+                                            @if($x['exid2'] == $z['id'])
+                                            <td style="padding:20px;">{{$z['name']}}</td>
+                                            @endif
+                                            @endforeach
+                                            <td style="padding:20px;">{{$x['duration']}}</td>
+                                            <td style="padding:20px;">{{$x['progress']}}</td>
+                                            <td style="padding:20px;">{{$x['status']}}</td>
                                             <td style="font-size: 10px;" ; class="button button2"><a href={{"delproj/".$x['id']}}> DELETE </td>
                                             <td style="font-size: 10px;" ; class="button button1"><a href={{"updproj/".$x['id']}}> UPDATE </td>
                                         </tr>

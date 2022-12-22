@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Breeze Admin</title>
+    <title>Admin Site</title>
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css" />
@@ -144,10 +144,9 @@
                                         <form action="/add" method="POST">
                                             @csrf
                                             <p style="color:red"> * is compulsory </p>
-                                            <div class="form-group">
-                                                <b>ID*</b><br><br>
-                                                <input type="text" name="id" placeholder="Enter Student ID:" required><br>
-                                            </div>
+                                            
+                                            <input type="hidden" name="id" placeholder="Enter Student ID:"><br>
+                                            
                                             <div class="form-group">
                                             <b>Name*</b><br><br>
                                                 <input type="text" name="name" placeholder="Enter Student Name:" required><br>

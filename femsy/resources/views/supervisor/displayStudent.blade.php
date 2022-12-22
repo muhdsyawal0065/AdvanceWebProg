@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Admin Site</title>
+    <title>Users Site</title>
     <link rel="stylesheet" href="admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
     <link rel="stylesheet" href="admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
     <link rel="stylesheet" href="admin/assets/vendors/css/vendor.bundle.base.css" />
@@ -148,7 +148,7 @@
                             @if (Route::has('login'))
                             <div>
                                 @auth
-                                <h3 style="padding-left:3%;"> Registered Students </h3>
+                                <h3 style="padding-left:3%;"> List of Supervisee </h3>
                                 <div style="position: relative; padding:20px; right:0px">
                                     <table bgcolor="white" style="border-radius: 8px;">
                                         <tr style="font-size: 12px; text-align:center">
