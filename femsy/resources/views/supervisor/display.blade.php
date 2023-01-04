@@ -163,8 +163,8 @@
                                             <th style="padding:20px; width:40px; ">Title</th>
                                             <th style="padding:20px; width:40px;">Category</th>
                                             <th style="padding:20px; width:40px;">Student</th>
-                                            <th style="padding:20px; width:40px;">Start Date</th>
-                                            <th style="padding:20px; width:40px;">End Date</th>
+                                             <!--<th style="padding:20px; width:40px;">Start Date</th>-->
+                                             <!--<th style="padding:20px; width:40px;">End Date</th>-->
                                             <th style="padding:20px; width:40px;">Supervisor</th>
                                             <th style="padding:20px; width:40px;">Examiner 1</th>
                                             <th style="padding:20px; width:40px;">Examiner 2</th>
@@ -183,8 +183,8 @@
                                             <td style="padding:20px;">{{$y['name']}}</td>
                                             @endif
                                             @endforeach
-                                            <td style="padding:20px;">{{$x['start_date']}}</td>
-                                            <td style="padding:20px;">{{$x['end_date']}}</td>
+                                            <!--<td style="padding:20px;">{{$x['start_date']}}</td>-->
+                                             <!--<td style="padding:20px;">{{$x['end_date']}}</td>-->
                                             @foreach($users as $z)
                                             @if($x['svid'] == $z['id'])
                                             <td style="padding:20px;">{{$z['name']}}</td>
